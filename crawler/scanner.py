@@ -1,6 +1,7 @@
 # -*- Encoding: utf-8 -*-
 import re
 import os
+from os.path import join
 import json
 
 
@@ -10,12 +11,13 @@ class Scanner:
         self.data = self.load()
 
     def scan(self, path, save_period=2000):
-        total = {fn for fn in os.listdir(path) if os.path.isfile(fn)}
+        files = {join(path, base_name) for base_name in os.listdir(path)}
+        total = {fn for fn in files if os.path.isfile(fn)}
         todo = total - set(self.data.keys())
 
         print 'scanning {}/{}'.format(len(todo), len(total))
         for i, filename in enumerate(todo):
-            with open(os.path.join(path, filename)) as f:
+            with open(filename) as f:
                 c = ''.join(f.readlines())
             self.data[filename] = ptn.findall(c)
 
@@ -49,3 +51,5 @@ if __name__ == '__main__':
     s.scan('.', save_period=7)
     print '----------'
     s.scan('.', save_period=7)
+    print '----------'
+    s.scan('..', save_period=7)
