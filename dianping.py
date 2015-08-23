@@ -3,8 +3,7 @@ import os
 from os.path import dirname, join, exists
 import re
 from crawler.request import request
-
-cache_root = join(dirname(__file__), 'cache')
+from settings import cache_root
 
 page_types = ['user_prof']
 for t in page_types:
