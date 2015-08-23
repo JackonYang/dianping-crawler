@@ -30,7 +30,10 @@ def grab_shop_prof(key):
 
 
 if __name__ == '__main__':
-    from test_tools import request
+    # from test_tools import request
 
-    print grab_user_prof('3601131')
-    print grab_shop_prof('3601131')
+    uid = '3601131'
+    print grab_user_prof(uid)
+
+    sid = '5195730'  # 45 reviews on 2015.8.3
+    print grab_shop_prof(sid)
