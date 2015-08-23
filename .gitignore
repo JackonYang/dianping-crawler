@@ -23,6 +23,10 @@ pip-log.txt  # Installer logs
 .ropeproject/*
 [._]*.s[a-w][a-z]
 [._]s[a-w][a-z]
+*~
+
+### Pycharm ###
+.idea/*
 
 
 ### Mac ###
