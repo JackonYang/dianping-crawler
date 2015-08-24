@@ -9,7 +9,7 @@ log = debug_logger(join(BASE_DIR, 'log/download'), 'root.download')
 
 
 class JobPool:
-    def __init__(self, job_name, total, done,
+    def __init__(self, job_name,
                  host='localhost', port=6379, db=0,
                  timeout=10):
         self.timeout = timeout
@@ -17,8 +17,6 @@ class JobPool:
         self.total_tbl = '{}:total'.format(job_name)
         self.todo_tbl = '{}:todo'.format(job_name)
         self.name = job_name
-
-        self.init_data(total, done)
 
     def init_data(self, total, done):
         self.db.delete(self.total_tbl)
@@ -72,8 +70,9 @@ if __name__ == '__main__':
     total = [str(i) for i in range(1, 9)]
     done = [str(i) for i in range(3, 9, 2)]
 
-    job = JobPool(job_name, total, done, db=9, timeout=2)
+    job = JobPool(job_name, db=9, timeout=2)
 
+    job.init_data(total, done)
     job.run(lambda key: [11, 12])
 
     job.init_data(total, done)

@@ -12,6 +12,7 @@ class Scanner:
         self.data = self.load()
 
     def scan(self, path, save_period=2000):
+        print 'scan {}'.format(path)
         total = {fn for fn in os.listdir(path)
                  if os.path.isfile(join(path, fn))}
         todo = total - set(self.data.keys())
