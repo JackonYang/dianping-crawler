@@ -8,18 +8,19 @@ import json
 class Scanner:
     def __init__(self, cache_filename, ptn):
         self.cache_name = cache_filename
+        self.ptn = ptn
         self.data = self.load()
 
     def scan(self, path, save_period=2000):
-        files = {join(path, base_name) for base_name in os.listdir(path)}
-        total = {fn for fn in files if os.path.isfile(fn)}
+        total = {fn for fn in os.listdir(path)
+                 if os.path.isfile(join(path, fn))}
         todo = total - set(self.data.keys())
 
         print 'scanning {}/{}'.format(len(todo), len(total))
         for i, filename in enumerate(todo):
-            with open(filename) as f:
+            with open(join(path, filename), 'r') as f:
                 c = ''.join(f.readlines())
-            self.data[filename] = ptn.findall(c)
+            self.data[filename] = list(set(self.ptn.findall(c)))
 
             if i % save_period == 0:
                 print '...saving. {} done.'.format(i+1)
