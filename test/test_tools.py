@@ -1,4 +1,8 @@
 # -*- Encoding: utf-8 -*-
+from os.path import join, dirname
+
+
+testdata = join(dirname(__file__), 'testdata.html')
 
 
 def request(url, filename):
@@ -6,7 +10,7 @@ def request(url, filename):
     print 'url: {}'.format(url)
     print 'filename: {}'.format(filename)
     print ''
-    with open('testdata.html', 'r') as f:
+    with open(testdata, 'r') as f:
         text = ''.join(f.readlines())
     return text
 
@@ -19,6 +23,6 @@ def request_pages(key, page_range, url_ptn, find_items, resend=3,
         print 'filename: {}'.format(filename_ptn.format(key, i))
     print ''
 
-    with open('testdata.html', 'r') as f:
+    with open(testdata, 'r') as f:
         text = ''.join(f.readlines())
     return find_items(text, key)

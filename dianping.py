@@ -40,7 +40,7 @@ def grab_reviews(key, max_page=100):
 
 
 if __name__ == '__main__':
-    from test_tools import request, request_pages
+    from test.test_tools import request, request_pages
 
     uid = '3601131'
     print grab_user_prof(uid)
