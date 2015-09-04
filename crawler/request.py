@@ -14,7 +14,7 @@ log = debug_logger(join(BASE_DIR, 'log/request'), 'root.request')
 _last_req = None
 
 
-def delay(bottom=2, top=7):
+def delay(bottom=5, top=20):
     global _last_req
     if _last_req is None:
         _last_req = time.time()
@@ -34,6 +34,21 @@ def wait(f):
         return f(*args, **kwargs)
     return _wrap_func
 
+headers_templates = {
+    'Connection': 'keep-alive',
+    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.125 Safari/537.36',
+    'Content-type': 'application/x-www-form-urlencoded',
+    'Accept': '*/*',
+    'Accept-Charset': 'UTF-8,*;q=0.5',
+    'Accept-Encoding': 'gzip,deflate,sdch',
+    'Accept-Language': 'zh-CN,zh;q=0.8',
+    'Cache-Control': 'no-cache',
+    'Host': 'www.dianping.com',
+    'Referer': 'http://www.dianping.com/',
+    'DNT': '1',
+    'Cookie': '_hc.v="\"34c79447-2d40-484c-b3a8-111ed94f15c6.1441030730\""; PHOENIX_ID=0a010439-14f86a71577-18284d; __utma=205923334.1131356186.1441030729.1441075605.1441099049.5; __utmb=205923334.25.10.1441099049; __utmc=205923334; __utmz=205923334.1441030729.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); JSESSIONID=A3752DEEAE18623895C02473CF612F4E; aburl=1; cy=1; cye=shanghai',
+}
+
 
 @wait
 def request(url, timeout=2, method='GET', filename=None):
@@ -41,7 +56,7 @@ def request(url, timeout=2, method='GET', filename=None):
     h = Http(timeout=timeout)
     try:
         log.debug('request {}'.format(url))
-        rsp, content = h.request(url, method)
+        rsp, content = h.request(url, method, headers=headers_templates)
     except socket.timeout:
         return None
 
