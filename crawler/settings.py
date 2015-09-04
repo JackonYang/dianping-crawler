@@ -10,6 +10,9 @@ WECHAT_CONN = {
     'password': '',
 }
 
+DELAY_BOTTOM = 5
+DELAY_TOP = 10
+
 NOTIFY_IDS = [
     '2271762240',  # k
     '98160640',  # v
