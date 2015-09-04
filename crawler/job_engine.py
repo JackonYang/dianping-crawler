@@ -1,5 +1,6 @@
 # -*- Encoding: utf-8 -*-
 import redis
+from wechat import send
 
 from os.path import dirname, join
 from log4f import debug_logger
@@ -44,10 +45,13 @@ class JobPool:
                 log.info(
                     '{} items in {}-{}'.format(
                         len(items), self.name, key))
+                if len(items) == 0:
+                    send(u'Warning! May be banned. key={}'.format(key))
                 if recursive:
                     self._add(*items)
             except Exception as e:
                 log.error('{}. ID={}'.format(e, key))
+                send(u'Info! meet exceptions. key={}, err={}'.format(key, e))
                 self.db.rpush(self.todo_tbl, key)
             key = self._next()
 

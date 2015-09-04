@@ -15,7 +15,7 @@ NOTIFY_IDS = [
     '98160640',  # v
 ]
 
-MSG_SIGNATURE = 'AutoSend by Python'
+MSG_SIGNATURE = 'AutoSend by Dianping Crawler'
 
 
 try:
