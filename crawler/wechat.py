@@ -42,8 +42,11 @@ def send(msg_text):
     msg = u'{}. {}'.format(msg_text, settings.MSG_SIGNATURE)
     for fakeid in settings.NOTIFY_IDS:
         name = r.get(fakeid) or fakeid
-        log.info(u'msg sent. user={}. msg={}'.format(name, msg))
-        login(**settings.WECHAT_CONN).send_message(fakeid, msg)
+        try:
+            login(**settings.WECHAT_CONN).send_message(fakeid, msg)
+            log.info(u'msg sent. user={}'.format(name))
+        except:
+            log.info(u'fail to send msg. user={}'.format(name))
 
 
 if __name__ == "__main__":
